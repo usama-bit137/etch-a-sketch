@@ -2,7 +2,6 @@
     margin: auto;
     padding: 0px;
     font-family: sans-serif; 
-    /*border: 1px solid red;*/
 }
 
 .banner {
@@ -14,15 +13,16 @@
 
 #container {
     justify-content: center;
-    height: 250px; 
-    width:  250px;
+    height: 500px; 
+    width:  500px;
     display: grid; 
     border: 2px solid black; 
 }
 
 .game {
     align-items: center;
-    width: 100px; 
+    width: 500px; 
+    display: flex; 
 }
 
 .row {
@@ -39,10 +39,10 @@
     background-color: black;
 }
 
-#new {
-    height: 150px; 
-    width: 150px; 
-    border-radius: 150px;
-    font-size: 30px; 
+button {
+    height: 50px; 
+    width: 50px; 
+    border-radius: 50px;
+    font-size: 10px; 
     /*margin: 50px  500px; */
 }

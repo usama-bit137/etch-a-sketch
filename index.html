@@ -7,10 +7,9 @@
     </head>
     <body>
       <div class = 'banner'>Etch-a-Sketch-a</div> 
-
-      <div class = 'game'><button id = 'new'>New Grid</button></div>
-
       <div id = 'container'></div>   
+      <div class = 'game'><button id = 'new'>New Grid</button><button id = 'rainbow'>Rainbow</button></div>
+
       
    </body>
 
@@ -21,17 +20,11 @@
 
             while (dimensions > 100 || dimensions < 1){
                dimensions = prompt('Try to choose a number between 1 and 100');
-               // this will stop the user from entering values that are not in the 
-               // range [1,100]. 
             }; 
-            
-            console.log(dimensions)
 
             const container = document.querySelector('#container');
-
-            const containerHeight = container.offsetHeight-8 ; 
-            console.log(containerHeight);
-
+            const containerHeight = container.offsetHeight-8; 
+            
             for (let i = 0; i < dimensions; i ++){
                const row = document.createElement('div');   
                for (let j = 0; j < dimensions; j++){
@@ -48,24 +41,41 @@
 
             var boxes = Array.from(document.querySelectorAll('.box'));
             var rows = Array.from(document.querySelectorAll('.row'));
-            function addEventListenerList(list){
+
+            function addEventListenerList(color, list){
                for (let i = 0; i < list.length; i++){
                   list[i].addEventListener('click', ()=>{
-                     list[i].setAttribute('style', 'background-color: black; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
-                     for (let j = 0; j < list.length; j++ ){
-                        list[j].addEventListener('mouseover', ()=>{
-                           list[j].setAttribute('style', 'background-color: black; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
-                        });
-                     };
+                     list[i].setAttribute('style', 'background-color:' +  color + '; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                  });
+               };
+
+               for (let j = 0; j < list.length; j++ ){
+                  list[j].addEventListener('mouseover', ()=>{
+                     list[j].setAttribute('style', 'background-color:' +  color + '; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
                   });
                };
             };
-
-            addEventListenerList(boxes);
             
-            // try a recursive algorithm => works but after we click the button the nth time, 
-            // the number of prompt appearances increase by 2^{n-1}. After the 2^{n+1}th time,
-            // game works fine. The reason is that the 
+            // generate 3 random numbers: 
+            
+            var rainbow = document.querySelector('#rainbow'); 
+
+
+            let x = Math.floor(256*Math.random());
+            let y = Math.floor(256*Math.random());
+            let z = Math.floor(256*Math.random());
+
+            rainbow.addEventListener('click', ()=>{
+               addEventListenerList('rgb(x,y,z)', boxes);
+            });
+
+
+            console.log(x);
+            console.log(y);
+            console.log(z);
+
+            addEventListenerList('black', boxes);      
+         
          };
 
          var newGrid = document.querySelector('#new');
@@ -73,8 +83,6 @@
             var boxes = Array.from(document.querySelectorAll('.box'));
             var rows = Array.from(document.querySelectorAll('.row')); 
       
-            // iteratively remove boxes and rows
-               
                boxes.forEach((box)=>{
                   box.remove();
                });
@@ -86,9 +94,9 @@
             });
 
             grid(); 
-            
-            // next need to fix the hover method so that when you click and hover, the line is drawn.
 
+            
+      
      </script>
     
 </html>  
