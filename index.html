@@ -52,6 +52,11 @@
                for (let i = 0; i < list.length; i++){
                   list[i].addEventListener('click', ()=>{
                      list[i].setAttribute('style', 'background-color: black; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                     for (let j = 0; j < list.length; j++ ){
+                        list[j].addEventListener('mouseover', ()=>{
+                           list[j].setAttribute('style', 'background-color: black; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                        });
+                     };
                   });
                };
             };
@@ -81,7 +86,9 @@
             });
 
             grid(); 
-   
+            
+            // next need to fix the hover method so that when you click and hover, the line is drawn.
+
      </script>
     
 </html>  
