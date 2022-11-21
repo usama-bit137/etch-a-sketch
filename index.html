@@ -7,11 +7,12 @@
     </head>
     <body>
       <div class = 'banner'>Etch-a-Sketch-a</div> 
-      
-         <button id = 'new'>New Grid</button>
 
-         <div id = 'container'></div>   
-      </body>
+      <div class = 'game'><button id = 'new'>New Grid</button></div>
+
+      <div id = 'container'></div>   
+      
+   </body>
 
       <script>
          
@@ -54,13 +55,20 @@
                   });
                };
             };
+
             addEventListenerList(boxes);
             
-            // try a recursive algorithm,
+            // try a recursive algorithm => works but after we click the button the nth time, 
+            // the number of prompt appearances increase by 2^{n-1}. After the 2^{n+1}th time,
+            // game works fine. The reason is that the 
+         };
 
-            var newGrid = document.querySelector('#new'); 
-            newGrid.addEventListener('click', ()=>{
-               // iteratively remove boxes and rows
+         var newGrid = document.querySelector('#new');
+         newGrid.addEventListener('click', ()=>{
+            var boxes = Array.from(document.querySelectorAll('.box'));
+            var rows = Array.from(document.querySelectorAll('.row')); 
+      
+            // iteratively remove boxes and rows
                
                boxes.forEach((box)=>{
                   box.remove();
@@ -69,13 +77,11 @@
                rows.forEach((row)=>{
                   row.remove();
                });
-
                grid();
             });
-         };
 
-         grid(); 
-
+            grid(); 
+   
      </script>
     
 </html>  

@@ -1,22 +1,28 @@
 * {
     margin: auto;
     padding: 0px;
-    font-family: fantasy; 
+    font-family: sans-serif; 
+    /*border: 1px solid red;*/
 }
 
 .banner {
     margin: 0px;
     text-align: center;
-    font-size: 30px;
-    color: gold; 
+    font-size: 50px;
+    color: black; 
 }
 
 #container {
     justify-content: center;
-    height: 500px; 
-    width: 500px;
+    height: 1000px; 
+    width: 1000px;
     display: grid; 
-    border: 4px solid black; 
+    border: 2px solid black; 
+}
+
+.game {
+    align-items: center;
+    width: 100px; 
 }
 
 .row {
@@ -34,7 +40,9 @@
 }
 
 #new {
-    height: 100px; 
-    width: 100px; 
-    border-radius: 100px;
+    height: 150px; 
+    width: 150px; 
+    border-radius: 150px;
+    font-size: 30px; 
+    /*margin: 50px  500px; */
 }
