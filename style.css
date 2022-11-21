@@ -14,8 +14,8 @@
 
 #container {
     justify-content: center;
-    height: 500px; 
-    width:  500px;
+    height: 250px; 
+    width:  250px;
     display: grid; 
     border: 2px solid black; 
 }
