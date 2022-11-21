@@ -7,64 +7,75 @@
     </head>
     <body>
       <div class = 'banner'>Etch-a-Sketch-a</div> 
-        <div id = 'container'>
-         <!--Get one row to work!-->
-         </div>   
+      
+         <button id = 'new'>New Grid</button>
+
+         <div id = 'container'></div>   
       </body>
 
       <script>
-         var dimensions = prompt('Choose a number between 1 and 100');
-
-         while (dimensions > 100 || dimensions < 1){
-            dimensions = prompt('Try to choose a number between 1 and 100');
-            // this will stop the user from entering values that are not in the 
-            // range [1,100]. 
-         }; 
          
-         console.log(dimensions)
+         function grid() {
+            var dimensions = prompt('Choose a number between 1 and 100');
 
-         const container = document.querySelector('#container');
-         
-         // a for loop which creates some divs
-         // how do i create a div? inside of container? 
+            while (dimensions > 100 || dimensions < 1){
+               dimensions = prompt('Try to choose a number between 1 and 100');
+               // this will stop the user from entering values that are not in the 
+               // range [1,100]. 
+            }; 
+            
+            console.log(dimensions)
 
-         // element created. Next we want a for loop which generates a 
-         
+            const container = document.querySelector('#container');
 
-         const containerHeight = container.offsetHeight-8 ; 
-         console.log(containerHeight);
+            const containerHeight = container.offsetHeight-8 ; 
+            console.log(containerHeight);
 
-         for (let i = 0; i < dimensions; i ++){
-            const row = document.createElement('div');   
-            for (let j = 0; j < dimensions; j++){
-               var box = document.createElement('div');
-               box.classList.add('box');
-               box.setAttribute('style', 'height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
-               row.appendChild(box);
+            for (let i = 0; i < dimensions; i ++){
+               const row = document.createElement('div');   
+               for (let j = 0; j < dimensions; j++){
+                  var box = document.createElement('div');
+                  box.classList.add('box');
+                  box.setAttribute('style', 'height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                  row.appendChild(box);
+               };
+
+               row.classList.add('row');
+               row.setAttribute('style', 'width:' +  containerHeight+ 'px; height:' + containerHeight/dimensions + 'px;');
+               container.appendChild(row);
+            }; 
+
+            var boxes = Array.from(document.querySelectorAll('.box'));
+            var rows = Array.from(document.querySelectorAll('.row'));
+            function addEventListenerList(list){
+               for (let i = 0; i < list.length; i++){
+                  list[i].addEventListener('click', ()=>{
+                     list[i].setAttribute('style', 'background-color: black; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                  });
+               };
             };
+            addEventListenerList(boxes);
+            
+            // try a recursive algorithm,
 
-            row.classList.add('row');
-            row.setAttribute('style', 'width:' +  containerHeight+ 'px; height:' + containerHeight/dimensions + 'px;');
-            container.appendChild(row);
-         }; 
-
-
-         //var box = Array.from(document.querySelectorAll('.box'));
-         //console.log(box); //should be an array of 16 elements.
-         
-         function addEventListenerList(list){
-            for (let i = 0; i < list.length; i++){
-               list[i].addEventListener('click', ()=>{
-                  list[i].setAttribute('style', 'background-color: black;');
-                  row.appendChild(list[i]); 
-                  container.appendChild(row);
+            var newGrid = document.querySelector('#new'); 
+            newGrid.addEventListener('click', ()=>{
+               // iteratively remove boxes and rows
+               
+               boxes.forEach((box)=>{
+                  box.remove();
                });
-            };
+
+               rows.forEach((row)=>{
+                  row.remove();
+               });
+
+               grid();
+            });
          };
 
-         console.log(box);
+         grid(); 
 
-         addEventListenerList(box);
      </script>
     
 </html>  
