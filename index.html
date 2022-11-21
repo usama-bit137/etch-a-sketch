@@ -30,15 +30,21 @@
 
          // element created. Next we want a for loop which generates a 
          
-         for (let i = 0; i <= dimensions; i ++){
+
+         const containerHeight = container.offsetHeight-8 ; 
+         console.log(containerHeight);
+
+         for (let i = 0; i < dimensions; i ++){
             const row = document.createElement('div');   
-            for (let j = 0; j <= dimensions; j++){
-               var box = document.createElement('div'); 
+            for (let j = 0; j < dimensions; j++){
+               var box = document.createElement('div');
                box.classList.add('box');
+               box.setAttribute('style', 'height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
                row.appendChild(box);
             };
 
             row.classList.add('row');
+            row.setAttribute('style', 'width:' +  containerHeight+ 'px; height:' + containerHeight/dimensions + 'px;');
             container.appendChild(row);
          }; 
 
@@ -46,12 +52,19 @@
          //var box = Array.from(document.querySelectorAll('.box'));
          //console.log(box); //should be an array of 16 elements.
          
-         box.addEventListener('click', ()=>{
-            box.setAttribute('style', 'background-color: black;');
-            row.appendChild(box);
-            container.appendChld(row); 
-         }); 
-         
+         function addEventListenerList(list){
+            for (let i = 0; i < list.length; i++){
+               list[i].addEventListener('click', ()=>{
+                  list[i].setAttribute('style', 'background-color: black;');
+                  row.appendChild(list[i]); 
+                  container.appendChild(row);
+               });
+            };
+         };
+
+         console.log(box);
+
+         addEventListenerList(box);
      </script>
     
 </html>  
