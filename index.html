@@ -8,12 +8,27 @@
     <body>
       <div class = 'banner'>Etch-a-Sketch-a</div> 
       <div id = 'container'></div>   
-      <div class = 'game'><button id = 'new'>New Grid</button><button id = 'rainbow'>Rainbow</button></div>
+      <div class = 'game'><button id = 'new'>New Grid</button><button id = 'clear'>Eraser</button><button id = 'rainbow'>Rainbow</button></div>
 
       
    </body>
 
       <script>
+
+         const removeFromArray = function() {
+            const slicedArgs = Array.prototype.slice.call(arguments, 1);
+            var array = arguments[0];
+            var withinCount = array.length;
+            for (let i = 0; i < slicedArgs.length; i++){
+            
+               if (array.includes(slicedArgs[i])){
+                     var index = array.indexOf(slicedArgs[i]);
+                     array.push(array.splice(index, 1)[0]);
+                     withinCount --; 
+               }; 
+            
+            } return array.slice(0, withinCount);
+         };
          
          function grid() {
             var dimensions = prompt('Choose a number between 1 and 100');
@@ -35,48 +50,66 @@
                };
 
                row.classList.add('row');
-               row.setAttribute('style', 'width:' +  containerHeight+ 'px; height:' + containerHeight/dimensions + 'px;');
+               row.setAttribute('style', 'width:' +  containerHeight + 'px; height:' + containerHeight/dimensions + 'px;');
                container.appendChild(row);
             }; 
 
             var boxes = Array.from(document.querySelectorAll('.box'));
             var rows = Array.from(document.querySelectorAll('.row'));
+            var colour = 'black';
 
-            function addEventListenerList(color, list){
-               for (let i = 0; i < list.length; i++){
-                  list[i].addEventListener('click', ()=>{
-                     list[i].setAttribute('style', 'background-color:' +  color + '; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
-                  });
-               };
+            function addEventListenerList(list){
 
                for (let j = 0; j < list.length; j++ ){
                   list[j].addEventListener('mouseover', ()=>{
-                     list[j].setAttribute('style', 'background-color:' +  color + '; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
+                     list[j].setAttribute('style', 'background-color:' +  colour + '; height:' + containerHeight/dimensions + 'px; width:' +  containerHeight/dimensions + 'px;');
                   });
                };
             };
-            
-            // generate 3 random numbers: 
+         
+
+            // ---------------Rainbow Colors--------------
             
             var rainbow = document.querySelector('#rainbow'); 
-
-
-            let x = Math.floor(256*Math.random());
-            let y = Math.floor(256*Math.random());
-            let z = Math.floor(256*Math.random());
-
             rainbow.addEventListener('click', ()=>{
-               addEventListenerList('rgb(x,y,z)', boxes);
+               for (let i = 0 ; i < boxes.length; i++){
+                  
+                  boxes[i].addEventListener('mouseover', ()=>{
+                  var state = 0;
+                  
+                  if (state == 0){
+                     var x = Math.floor(255*Math.random());
+                     var y = Math.floor(255*Math.random());
+                     var z = Math.floor(255*Math.random());
+
+                     colour = ["rgb(",x,",",y,",",z,")"].join("");  
+                     state = 1;
+
+                  } else { 
+                     while(state == 1){
+                     let boxColor = window.getComputedStyle(boxes[i]).backgroundColor;
+                     boxColor = boxColor.split(',')
+                        
+                     x = Number(removeFromArray(boxColor[0].split(''), 'r', 'g', 'b', '(', ',').join('')) - 25;
+                     y = Number(boxColor[1]) - 25;
+                     z = Number(removeFromArray(boxColor[2].split(''), ')').join('')) - 25;                        
+                        
+                     colour = ["rgb(",Math.abs(x),",",Math.abs(y),",",Math.abs(z),")"].join("");  
+                     console.log(colour);
+                  };
+                  };     
+                  }); 
+               };
             });
 
-
-            console.log(x);
-            console.log(y);
-            console.log(z);
-
-            addEventListenerList('black', boxes);      
-         
+            // -------------------------------------------
+            addEventListenerList(boxes);  
          };
+
+         const clear = document.querySelector('#clear');
+         clear.addEventListener('mouseover', ()=>{
+            colour = 'white';
+         });
 
          var newGrid = document.querySelector('#new');
          newGrid.addEventListener('click', ()=>{
@@ -92,11 +125,6 @@
                });
                grid();
             });
-
             grid(); 
-
-            
-      
      </script>
-    
 </html>  
